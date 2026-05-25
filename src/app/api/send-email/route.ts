@@ -56,6 +56,8 @@ export async function POST(request: Request) {
     const { user, pass, from } = getSmtpConfig()
     const { nome, contato, assunto, mensagem } = parsed.data
 
+    console.log(nome, contato)
+
     const transporter = nodemailer.createTransport({
       host: "smtp.zoho.com",
       port: Number(process.env.SMTP_PORT ?? 465),
@@ -74,8 +76,6 @@ export async function POST(request: Request) {
 
     const textBody = [
       `Nome: ${nome}`,
-      `E-mail: ${[contato]}`,
-      `Assunto: ${assunto}`,
       "",
       mensagem ? `Mensagem:\n${mensagem}` : "Mensagem: (não informada)",
     ].join("\n")
