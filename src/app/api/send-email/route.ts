@@ -20,7 +20,6 @@ function getSmtpConfig() {
     user,
     pass,
     from: process.env.SMTP_FROM ?? user,
-    to: process.env.SMTP_TO ?? user,
   }
 }
 
@@ -54,7 +53,7 @@ export async function POST(request: Request) {
       )
     }
 
-    const { user, pass, from, to } = getSmtpConfig()
+    const { user, pass, from } = getSmtpConfig()
     const { nome, contato, assunto, mensagem } = parsed.data
 
     const transporter = nodemailer.createTransport({
@@ -83,7 +82,7 @@ export async function POST(request: Request) {
 
     await transporter.sendMail({
       from,
-      to,
+      to: `${contato}`,
       replyTo: from,
       subject: `${assunto}`,
       text: textBody,
