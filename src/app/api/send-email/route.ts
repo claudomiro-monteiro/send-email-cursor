@@ -85,7 +85,7 @@ export async function POST(request: Request) {
       to: `${contato}`,
       replyTo: from,
       subject: `${assunto}`,
-      text: textBody,
+      // text: textBody,
       html: textBody.replace(/\n/g, "<br>"),
       attachments,
     })
