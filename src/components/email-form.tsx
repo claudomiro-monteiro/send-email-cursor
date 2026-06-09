@@ -45,6 +45,7 @@ export function EmailForm() {
     resolver: zodResolver(emailFormSchema),
     defaultValues: {
       nome: "",
+      contato: "",
       assunto: "",
       mensagem: "",
     },
@@ -77,7 +78,12 @@ export function EmailForm() {
         throw new Error(result.error ?? "Erro ao enviar e-mail")
       }
 
-      reset()
+      reset({
+        nome: "",
+        contato: "",
+        assunto: "",
+        mensagem: "",
+      })
       setFileName("")
       if (fileInputRef.current) {
         fileInputRef.current.value = ""
@@ -148,7 +154,12 @@ export function EmailForm() {
                 <SelectTrigger
                   id="contato"
                   aria-invalid={Boolean(errors.contato)}
-                  className={errors.contato ? inputErrorClassName : undefined}
+                  className={cn(
+                    "h-9",
+                    errors.contato
+                      ? "border-red-500! focus:ring-red-500"
+                      : "border-zinc-700",
+                  )}
                 >
                   <SelectValue placeholder="Selecione o seu contato" />
                 </SelectTrigger>
